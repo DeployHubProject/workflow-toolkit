@@ -41,7 +41,7 @@ on:
 
 jobs:
   build:
-    if: ${{ inputs.gh_repository_owner == 'ortelius' && inputs.gh_event_name == 'push' && inputs.gh_ref == 'refs/heads/main' }}
+    if: ${{ inputs.gh_repository_owner == 'DeployHubProject' && inputs.gh_event_name == 'push' && inputs.gh_ref == 'refs/heads/main' }}
     strategy:
       fail-fast: false
       matrix:
@@ -119,7 +119,7 @@ jobs:
         timeout-minutes: 100
   release:
     needs: build
-    if: ${{ inputs.gh_repository_owner == 'ortelius' && inputs.gh_event_name == 'push' && inputs.gh_ref == 'refs/heads/main' }}
+    if: ${{ inputs.gh_repository_owner == 'DeployHubProject' && inputs.gh_event_name == 'push' && inputs.gh_ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     outputs:
       digest: ${{ steps.manifest.outputs.digest }}
