@@ -126,6 +126,7 @@ jobs:
           DHPASS: ${{ secrets.DHPASS }}
           RUN_NUMBER: ${{ inputs.run_number }}
         run: |
+          sleep 5m
           git pull
           yarn install
           node main.js
