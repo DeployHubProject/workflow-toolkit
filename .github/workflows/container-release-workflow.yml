@@ -184,7 +184,7 @@ jobs:
 
       - name: Verify the pushed tags
         run: |
-          cosign verify ${{ inputs.image_repo_tag }}@${{ steps.manifest.outputs.digest }} --certificate-identity-regexp 'https://github\.com/ortelius/workflow-toolkit/\.github/workflows/.+' --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' | jq "."
+          cosign verify ${{ inputs.image_repo_tag }}@${{ steps.manifest.outputs.digest }} --certificate-identity-regexp 'https://github\.com/DeployHubProject/workflow-toolkit/\.github/workflows/.+' --certificate-oidc-issuer 'https://token.actions.githubusercontent.com' | jq "."
 
       - name: Swagger
         if: ${{ env.GH_TOKEN != '' }}
