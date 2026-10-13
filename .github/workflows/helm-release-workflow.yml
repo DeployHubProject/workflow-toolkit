@@ -126,9 +126,8 @@ jobs:
           DHPASS: ${{ secrets.DHPASS }}
           RUN_NUMBER: ${{ inputs.run_number }}
         run: |
-          sleep 5m
-          yarn install
           git pull
+          yarn install
           node main.js
           git add "${{ inputs.chart }}/Chart.yaml"
           git commit -m "Generate Main Chart"
