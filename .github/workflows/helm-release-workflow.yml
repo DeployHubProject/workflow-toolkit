@@ -79,11 +79,23 @@ jobs:
           git config user.email "${{ inputs.gh_handle }}@users.noreply.github.com"
         shell: bash
 
-      - name: Get all branches
-        id: branches
-        run: |
-          git pull --all; for remote in $(git branch -r | grep -v main | grep -v \>); do git branch --track "${remote#origin/}" "$remote"; done
+      - name: Sync remote branches
         shell: bash
+        run: |
+          git fetch --all --prune
+
+          # Make local main match remote main
+          git checkout main
+          git reset --hard origin/main
+
+          # Create tracking branches for other remote branches
+          while IFS= read -r remote; do
+            branch="${remote#origin/}"
+
+            if ! git show-ref --verify --quiet "refs/heads/$branch"; then
+              git branch --track "$branch" "$remote"
+            fi
+          done < <(git branch -r --format='%(refname:short)' | grep '^origin/' | grep -v '^origin/main$')
 
       - name: Install Helm
         id: helm
